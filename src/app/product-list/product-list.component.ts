@@ -1,5 +1,6 @@
 import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Product, UpdateMode} from "../../types";
+import * as events from "events";
 
 @Component({
   selector: 'app-product-list',
@@ -10,6 +11,7 @@ export class ProductListComponent implements OnInit {
   @Input() products: Product[];
   @Output() onAddToCart: EventEmitter<Product> = new EventEmitter();
   @Output() onQuantityUpdate: EventEmitter<Product> = new EventEmitter();
+  inputQuantity: string = "";
 
   ngOnInit() {}
 
@@ -80,6 +82,12 @@ export class ProductListComponent implements OnInit {
 
   update(product: Product) {
     this.onQuantityUpdate.emit(product)
+  }
+
+  changeValue($event: any, product: Product) {
+    this.onQuantityUpdate.emit({
+      ...product,
+    })
   }
 }
 
