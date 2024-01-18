@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Cart, Product} from "../types";
+import {Cart, CartItem, Product} from "../types";
 
 @Component({
   selector: 'app-root',
@@ -26,11 +26,28 @@ export class AppComponent {
   }
 
   addToCart(product: Product) {
-      
+    if(this.cart.items.filter(item => item.id === product.id).length > 0) return;
+
+    this.cart.items.push({
+      id: product.id,
+      item: product.name,
+      quantity: product.cartQuantity
+    })
   }
 
   updateCart(product: Product) {
-      
+    console.log("updating ", product)
+    this.cart.items = this.cart.items.map((item) => {
+      if(item.id === product.id) {
+        console.log("found")
+        return {
+          id: product.id,
+          item: product.name,
+          quantity: product.cartQuantity
+        }
+      }
+      return item;
+    })
   }
 }
 

@@ -7,13 +7,13 @@
         <p class="ma-0 mt-8 text-center">${{product.price}}</p>
       </div>
       <div class="card-actions justify-content-center pa-4">
-        <button class="x-small outlined" data-test-id="btn-item-add" (click)="addToCart()">
+        <button class="x-small outlined" data-test-id="btn-item-add" (click)="addToCart(product)">
           Add To Cart
         </button>
 
         <div class="layout-row justify-content-between align-items-center">
           <button class="x-small icon-only outlined"
-                  data-test-id="btn-quantity-subtract">
+                  data-test-id="btn-quantity-subtract" (click)="substract(product)">
             <i class="material-icons">remove</i>
           </button>
 
@@ -21,7 +21,7 @@
 
           <button class="x-small icon-only outlined"
                   data-test-id="btn-quantity-add">
-            <i class="material-icons">add</i>
+            <i class="material-icons" (click)="add(product)">add</i>
           </button>
         </div>
       </div>
