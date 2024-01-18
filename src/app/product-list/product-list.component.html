@@ -17,7 +17,7 @@
             <i class="material-icons">remove</i>
           </button>
 
-          <input type="number" class="cart-quantity" data-test-id="cart-quantity"/>
+          <input type="number" class="cart-quantity" data-test-id="cart-quantity" [(ngModel)]="product.cartQuantity" (keyup.enter)="update(product)"/>
 
           <button class="x-small icon-only outlined"
                   data-test-id="btn-quantity-add">

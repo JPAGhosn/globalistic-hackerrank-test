@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Product, UpdateMode} from "../../types";
 
 @Component({
@@ -12,6 +12,9 @@ export class ProductListComponent implements OnInit {
   @Output() onQuantityUpdate: EventEmitter<Product> = new EventEmitter();
 
   ngOnInit() {}
+
+  constructor(private cdef: ChangeDetectorRef) {
+  }
 
   addToCart(product: Product) {
     this.products = this.products.map(item => {
