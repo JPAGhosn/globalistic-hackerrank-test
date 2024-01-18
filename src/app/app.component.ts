@@ -31,7 +31,7 @@ export class AppComponent {
     this.cart.items.push({
       id: product.id,
       item: product.name,
-      quantity: product.cartQuantity
+      quantity: 1
     })
   }
 
@@ -48,6 +48,8 @@ export class AppComponent {
       }
       return item;
     })
+
+    this.cart.items = this.cart.items.filter(item => item.quantity > 0);
   }
 }
 

@@ -7,11 +7,11 @@
         <p class="ma-0 mt-8 text-center">${{product.price}}</p>
       </div>
       <div class="card-actions justify-content-center pa-4">
-        <button class="x-small outlined" data-test-id="btn-item-add" (click)="addToCart(product)">
+        <button class="x-small outlined" data-test-id="btn-item-add" (click)="addToCart(product)" *ngIf="product.cartQuantity <= 0">
           Add To Cart
         </button>
 
-        <div class="layout-row justify-content-between align-items-center">
+        <div class="layout-row justify-content-between align-items-center" *ngIf="product.cartQuantity > 0">
           <button class="x-small icon-only outlined"
                   data-test-id="btn-quantity-subtract" (click)="substract(product)">
             <i class="material-icons">remove</i>
