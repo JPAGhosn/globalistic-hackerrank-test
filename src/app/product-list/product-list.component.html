@@ -17,11 +17,11 @@
             <i class="material-icons">remove</i>
           </button>
 
-          <input type="number" class="cart-quantity" data-test-id="cart-quantity" [(ngModel)]="product.cartQuantity" (input)="changeValue($event, product)" />
+          <input type="number" class="cart-quantity" data-test-id="cart-quantity" [(ngModel)]="product.cartQuantity"/>
 
           <button class="x-small icon-only outlined"
-                  data-test-id="btn-quantity-add">
-            <i class="material-icons" (click)="add(product)">add</i>
+                  data-test-id="btn-quantity-add" (click)="add(product)">
+            <i class="material-icons">add</i>
           </button>
         </div>
       </div>

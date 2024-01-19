@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 import {Cart, CartItem, Product} from "../types";
 
 @Component({
@@ -7,10 +7,13 @@ import {Cart, CartItem, Product} from "../types";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  // need to update this cart
   products: Product[];
+
   cart: Cart;
 
-  constructor() {
+  constructor(private cdf: ChangeDetectorRef) {
     this.cart = {
       items: []
     } as Cart
@@ -26,30 +29,44 @@ export class AppComponent {
   }
 
   addToCart(product: Product) {
-    if(this.cart.items.filter(item => item.id === product.id).length > 0) return;
+    // get index of the product
+    const index = this.products.findIndex(item => item.id === product.id);
+
+    // check if already in card
+    const cartIndex = this.cart.items.findIndex(item => item.id === product.id);
+    if(cartIndex > -1) {
+      return;
+    }
 
     this.cart.items.push({
       id: product.id,
-      item: product.name,
-      quantity: 1
-    })
+      quantity: 1,
+      item: product.name
+    } as CartItem);
   }
 
   updateCart(product: Product) {
-    console.log("updating ", product)
-    this.cart.items = this.cart.items.map((item) => {
-      if(item.id === product.id) {
-        console.log("found")
-        return {
-          id: product.id,
-          item: product.name,
-          quantity: product.cartQuantity
-        }
-      }
-      return item;
-    })
+    const productIndex = this.products.findIndex(item => item.id === product.id);
+    const cardIndex = this.cart.items.findIndex(item => item.id === product.id);
 
-    this.cart.items = this.cart.items.filter(item => item.quantity > 0);
+    console.log(product)
+
+    // update product quantity
+    this.products[productIndex] = product;
+    console.log(this.products)
+
+    if(product.cartQuantity <= 0) {
+      this.cart.items = this.cart.items.filter(item => item.id !== product.id);
+    }
+    else {
+      // update cart quantity
+      this.cart.items[cardIndex] = {
+        ...this.cart.items[cardIndex],
+        quantity: product.cartQuantity,
+      }
+    }
+
+    console.log(this.cart)
   }
 }
 
